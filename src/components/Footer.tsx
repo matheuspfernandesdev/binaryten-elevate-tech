@@ -1,5 +1,5 @@
 import { Github, Linkedin, Instagram, Youtube, Mail } from "lucide-react";
-import logo from "@/assets/binary-ten-logo.png";
+import logo from "@/assets/binary-ten-logo.svg";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -20,8 +20,8 @@ const Footer = () => {
             {/* Brand */}
             <div>
               <div className="flex items-center space-x-3 mb-4">
-                <img src={logo} alt="Binary Ten" className="h-10 w-10" />
-                <span className="text-xl font-bold text-gradient">Binary Ten</span>
+                <img src={logo} alt="Binary Ten Logo" className="h-10 w-10" />
+                <span className="text-xl font-bold text-gradient tracking-tight">Binary Ten</span>
               </div>
               <p className="text-muted-foreground text-sm leading-relaxed">
                 Soluções inteligentes em automação e sistemas web. Tecnologia de ponta desenvolvida por especialistas.

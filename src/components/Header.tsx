@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/binary-ten-logo.png";
+import logo from "@/assets/binary-ten-logo.svg";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -41,9 +41,9 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-3 cursor-pointer" onClick={() => scrollToSection("hero")}>
-            <img src={logo} alt="Binary Ten" className="h-10 w-10" />
-            <span className="text-xl font-bold text-gradient">Binary Ten</span>
+          <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => scrollToSection("hero")}>
+            <img src={logo} alt="Binary Ten Logo" className="h-9 w-9 md:h-10 md:w-10 transition-transform duration-300 group-hover:scale-105" />
+            <span className="text-lg md:text-xl font-bold text-gradient tracking-tight">Binary Ten</span>
           </div>
 
           {/* Desktop Navigation */}
