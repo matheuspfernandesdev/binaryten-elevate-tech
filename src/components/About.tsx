@@ -48,18 +48,17 @@ const About = () => {
             {/* Content */}
             <div className="space-y-6 animate-slide-up">
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Com mais de <span className="text-primary font-semibold">8 anos de experiência</span> no setor de TI, 
-                a Binary Ten nasceu com o propósito de desenvolver soluções tecnológicas escaláveis, seguras e de alta performance.
+                Com mais de <span className="text-primary font-semibold">8 anos de atuação e inteligência técnica</span> no setor de TI,
+                a Binary Ten desenvolve soluções tecnológicas altamente escaláveis, seguras e orientadas ao crescimento do seu negócio.
               </p>
               
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Criada por um profissional formado em <span className="text-foreground font-semibold">Ciência da Computação pela UniBH</span>, 
-                a empresa alia conhecimento técnico e boas práticas de desenvolvimento, automação e arquitetura de sistemas.
+                Nossa atuação combina engenharia de software rigorosa, automação de processos inteligentes e arquitetura moderna para transformar desafios operacionais complexos em sistemas simples e eficientes.
               </p>
 
               <div className="glass-card p-6 rounded-xl border-l-4 border-primary">
-                <p className="text-xl font-semibold text-foreground">
-                  Especialista em automação e sistemas web
+                <p className="text-xl font-semibold text-foreground font-heading">
+                  Especialistas em automação de processos e desenvolvimento web sob medida
                 </p>
               </div>
             </div>

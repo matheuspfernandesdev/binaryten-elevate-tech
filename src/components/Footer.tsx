@@ -21,7 +21,7 @@ const Footer = () => {
             <div>
               <div className="flex items-center space-x-3 mb-4">
                 <img src={logo} alt="Binary Ten Logo" className="h-10 w-10 filter drop-shadow-[0_0_8px_rgba(0,242,254,0.3)]" />
-                <span className="text-xl font-bold text-gradient tracking-tight">Binary Ten</span>
+                <span className="text-xl font-bold font-heading text-gradient tracking-tight">Binary Ten</span>
               </div>
               <p className="text-muted-foreground text-sm leading-relaxed">
                 Soluções inteligentes em automação e sistemas web. Tecnologia de ponta desenvolvida por especialistas.
