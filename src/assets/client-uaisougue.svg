@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" width="100%" height="100%">
+  <defs>
+    <linearGradient id="uaisougueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff4b4b" />
+      <stop offset="100%" stop-color="#ff8c00" />
+    </linearGradient>
+  </defs>
+  <!-- Icon: Modern Geometric Emblem -->
+  <g transform="translate(15, 15)">
+    <rect x="0" y="0" width="50" height="50" rx="12" fill="url(#uaisougueGrad)" opacity="0.2" />
+    <path d="M 15 18 C 15 14, 35 14, 35 18 L 35 32 C 35 38, 15 38, 15 32 Z" fill="none" stroke="url(#uaisougueGrad)" stroke-width="4" />
+    <path d="M 25 10 L 25 18 M 20 12 L 20 18 M 30 12 L 30 18" stroke="url(#uaisougueGrad)" stroke-width="3" stroke-linecap="round" />
+  </g>
+  <!-- Text -->
+  <text x="80" y="46" font-family="system-ui, sans-serif" font-weight="800" font-size="24" fill="#ffffff" letter-spacing="0.5">Uai<tspan fill="#ff6b4b">sougue</tspan></text>
+</svg>

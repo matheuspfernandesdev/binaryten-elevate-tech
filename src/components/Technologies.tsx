@@ -1,36 +1,34 @@
-import { Code2, Database, Cloud, Cog, TestTube, FileCode } from "lucide-react";
+import { Lightbulb, Layers, Zap, ShieldCheck } from "lucide-react";
 
-const Technologies = () => {
-  const techCategories = [
+const Methodology = () => {
+  const steps = [
     {
-      category: "Backend",
-      icon: Code2,
-      techs: [".NET", "C#", "Java", "Entity Framework Core"],
+      step: "01",
+      title: "Entendimento do Negócio",
+      description:
+        "Mergulhamos nos seus processos e objetivos para mapear gargalos e desenhar a melhor estratégia tecnológica.",
+      icon: Lightbulb,
     },
     {
-      category: "Frontend",
-      icon: FileCode,
-      techs: ["Angular", "TypeScript", "React"],
+      step: "02",
+      title: "Arquitetura Sob Medida",
+      description:
+        "Projetamos soluções personalizadas com foco em escalabilidade, segurança e integração perfeita com seus sistemas.",
+      icon: Layers,
     },
     {
-      category: "Database",
-      icon: Database,
-      techs: ["PostgreSQL", "SQL Server", "MongoDB"],
+      step: "03",
+      title: "Entregas Ágeis & Código Limpo",
+      description:
+        "Desenvolvemos com ciclos curtos de validação, garantia de qualidade contínua e código totalmente seu.",
+      icon: Zap,
     },
     {
-      category: "Cloud & DevOps",
-      icon: Cloud,
-      techs: ["Azure", "AWS", "Docker", "CI/CD"],
-    },
-    {
-      category: "Testing",
-      icon: TestTube,
-      techs: ["Selenium", "Puppeteer", "Playwright", "SonarQube"],
-    },
-    {
-      category: "Architecture",
-      icon: Cog,
-      techs: ["DDD", "CQRS", "Clean Code", "AutoMapper", "FluentValidation"],
+      step: "04",
+      title: "Suporte & Evolução Contínua",
+      description:
+        "Garantimos o funcionamento impecável no pós-lançamento, com suporte dedicado e melhorias constantes.",
+      icon: ShieldCheck,
     },
   ];
 
@@ -42,55 +40,51 @@ const Technologies = () => {
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Nossas <span className="text-gradient">Tecnologias</span>
+          <p className="text-sm font-semibold uppercase tracking-widest text-primary mb-2">
+            Processo de Trabalho
+          </p>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 font-heading">
+            Nossa <span className="text-gradient">Metodologia</span>
           </h2>
           <div className="w-20 h-1 bg-primary mx-auto mb-8" />
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Stack moderna e robusta para desenvolver soluções de alta performance
+            Como transformamos desafios de negócios em software de alto impacto em 4 passos simples
           </p>
         </div>
 
-        {/* Technologies Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {techCategories.map((category, index) => (
+        {/* Methodology Steps Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+          {steps.map((item, index) => (
             <div
               key={index}
-              className="glass-card p-6 rounded-xl hover:scale-105 transition-all duration-300 group animate-slide-up"
+              className="glass-card p-6 rounded-2xl hover:scale-105 transition-all duration-300 group animate-slide-up relative flex flex-col justify-between"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              {/* Icon */}
-              <div className="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:glow-primary transition-all">
-                <category.icon className="w-7 h-7 text-primary" />
+              {/* Step Badge */}
+              <div className="flex items-center justify-between mb-6">
+                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center group-hover:glow-primary transition-all">
+                  <item.icon className="w-6 h-6 text-primary" />
+                </div>
+                <span className="text-3xl font-extrabold font-heading text-primary/30 group-hover:text-primary transition-colors">
+                  {item.step}
+                </span>
               </div>
 
-              {/* Category Title */}
-              <h3 className="text-xl font-bold mb-4 text-foreground">{category.category}</h3>
-
-              {/* Tech Tags */}
-              <div className="flex flex-wrap gap-2">
-                {category.techs.map((tech, techIndex) => (
-                  <span
-                    key={techIndex}
-                    className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full border border-primary/20 hover:bg-primary/20 transition-colors"
-                  >
-                    {tech}
-                  </span>
-                ))}
+              {/* Title & Description */}
+              <div>
+                <h3 className="text-xl font-bold mb-3 text-foreground font-heading">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {item.description}
+                </p>
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Additional Tech List */}
-        <div className="mt-12 text-center">
-          <p className="text-sm text-muted-foreground">
-            E muito mais: Git, REST APIs, Microservices, OAuth, JWT, RabbitMQ, Redis
-          </p>
         </div>
       </div>
     </section>
   );
 };
 
-export default Technologies;
+export default Methodology;

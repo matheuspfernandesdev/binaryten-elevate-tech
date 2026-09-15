@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" width="100%" height="100%">
+  <defs>
+    <linearGradient id="etusGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#ec4899" />
+    </linearGradient>
+  </defs>
+  <!-- Icon: Media layers symbol -->
+  <g transform="translate(15, 15)">
+    <rect x="0" y="0" width="50" height="50" rx="12" fill="url(#etusGrad)" opacity="0.2" />
+    <path d="M 12 25 L 25 15 L 38 25 L 25 35 Z" fill="none" stroke="url(#etusGrad)" stroke-width="3" />
+    <path d="M 12 31 L 25 41 L 38 31" fill="none" stroke="url(#etusGrad)" stroke-width="3" stroke-linecap="round" />
+  </g>
+  <!-- Text -->
+  <text x="80" y="38" font-family="system-ui, sans-serif" font-weight="800" font-size="24" fill="#ffffff" letter-spacing="1">ETUS</text>
+  <text x="80" y="56" font-family="system-ui, sans-serif" font-weight="600" font-size="11" fill="#ec4899" letter-spacing="2">MEDIA HOLDING</text>
+</svg>
