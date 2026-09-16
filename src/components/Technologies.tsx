@@ -65,7 +65,7 @@ const Methodology = () => {
                 <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center group-hover:glow-primary transition-all">
                   <item.icon className="w-6 h-6 text-primary" />
                 </div>
-                <span className="text-3xl font-extrabold font-heading text-primary/30 group-hover:text-primary transition-colors">
+                <span className="text-3xl font-extrabold font-heading text-primary/80 group-hover:text-primary transition-colors">
                   {item.step}
                 </span>
               </div>

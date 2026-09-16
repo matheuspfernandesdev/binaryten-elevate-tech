@@ -105,7 +105,7 @@ const Projects = () => {
 
                 {/* Key Results / Impacts */}
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-primary/80 mb-3">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-3">
                     Impactos Gerados:
                   </p>
                   <div className="flex flex-wrap gap-2">

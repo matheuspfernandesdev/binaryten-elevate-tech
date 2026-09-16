@@ -18,7 +18,7 @@ const Footer = () => {
             {/* Brand */}
             <div>
               <div className="flex items-center space-x-3 mb-4">
-                <img src={logo} alt="Binary Ten Logo" className="h-10 w-10 filter drop-shadow-[0_0_8px_rgba(0,242,254,0.3)]" />
+                <img src={logo} alt="Binary Ten Logo" width={40} height={40} className="h-10 w-10 filter drop-shadow-[0_0_8px_rgba(0,242,254,0.3)]" />
                 <span className="text-xl font-bold font-heading text-gradient tracking-tight">Binary Ten</span>
               </div>
               <p className="text-muted-foreground text-sm leading-relaxed">

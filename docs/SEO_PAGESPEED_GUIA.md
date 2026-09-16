@@ -72,6 +72,36 @@ Para resolver diretamente os problemas relatados acima, aplicamos as seguintes s
 
 ---
 
+## 3.1. Segunda Rodada de Otimizações (PageSpeed 86 → meta 95+)
+
+Nova auditoria apontou bloqueio de renderização residual (340 ms), JavaScript não usado (46 KiB), entrega de imagens (68 KiB), imagens sem `width`/`height` e problemas de acessibilidade (botão sem nome acessível e contraste insuficiente). Correções aplicadas:
+
+### **E. CSS Inline no HTML (Eliminação do bloqueio de renderização — 340 ms)**
+- **Ação:** Plugin customizado no `vite.config.ts` (`inlineCss`) injeta o CSS compilado diretamente no `<style>` do `index.html` durante o build, eliminando a requisição externa do arquivo `.css` que bloqueava a renderização.
+- **Resultado:** Zero requisições de CSS bloqueantes; o HTML já chega ao navegador pronto para pintar a tela.
+
+### **F. Correção do Import Duplicado do Hero + Preload da Imagem**
+- **Ação:** O `Hero.tsx` tinha dois imports com o mesmo nome (`hero-bg.webp` e `hero-bg.jpg`); o bundler usava silenciosamente o JPG de 120 KB. Corrigido para usar o WebP (70 KB) movido para `public/hero-bg.webp`, com `<link rel="preload" as="image" fetchpriority="high">` no `index.html`.
+- **Resultado:** A imagem de fundo inicia o download junto com o HTML (antes do JavaScript executar), antecipando o LCP e o Speed Index.
+
+### **G. Remoção de JavaScript Não Utilizado (economia de ~115 KB no bundle)**
+- **Ação:** Removidos do `App.tsx` os providers não utilizados na landing page: `@tanstack/react-query`, `Toaster` (Radix), `Sonner` e `TooltipProvider`.
+- **Resultado:** Bundle JS reduzido de **342 KB → 227 KB** (gzip: 107 KB → 74 KB), acelerando o download, o parse e a primeira renderização (FCP) em redes 4G.
+
+### **H. Otimização das Imagens dos Clientes (economia de ~56 KB)**
+- **Ação:** Logos de clientes redimensionados de 225–447 px para 160 px e convertidos para JPG otimizado (exibidos a ~80 px): `logo-rumo` 43,5 KB → 5,5 KB, `logo-etus` 15,6 KB → 5,9 KB, `logo-uaisougue` 11 KB → 3,9 KB (inline como data URL). Adicionados `width`/`height` explícitos, `loading="lazy"` e `decoding="async"` em todos os `<img>` da página.
+- **Resultado:** Resolve o item "Melhorar a entrega de imagens" e "Os elementos de imagem não têm width e height explícitas".
+
+### **I. Acessibilidade — Nome Acessível no Botão do Menu Mobile**
+- **Ação:** Adicionados `aria-label` ("Abrir menu"/"Fechar menu") e `aria-expanded` ao botão do menu mobile no `Header.tsx`.
+- **Resultado:** Leitores de tela anunciam corretamente a função do botão.
+
+### **J. Acessibilidade — Contraste de Cores (WCAG AA)**
+- **Ação:** Texto branco sobre o botão ciano primário tinha contraste de apenas ~2,85:1. Ajustado o design system em `index.css`: `--primary` clareado para `199 89% 55%` e `--primary-foreground` alterado para azul-marinho escuro (`222 47% 11%`), elevando o contraste para ~7:1. Botão do WhatsApp escurecido (`emerald-600` → `emerald-700`) e textos decorativos com opacidade insuficiente (`text-primary/30`, `text-primary/80`) reforçados.
+- **Resultado:** Todos os textos atendem à razão mínima de contraste 4,5:1 (texto normal) e 3:1 (texto grande) da WCAG 2 AA.
+
+---
+
 ## 4. Passo a Passo Completo: Como Colocar o Site na 1ª Página do Google para "Binary Ten"
 
 Para garantir que quando alguém digitar **"binary ten"** ou **"binary ten automação"** o seu site apareça na **1ª posição da 1ª página**, siga as etapas práticas abaixo:

@@ -65,7 +65,7 @@ const Contact = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-xl mx-auto mb-8">
             <Button
               onClick={handleWhatsApp}
-              className="w-full justify-center bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-950/30 py-6 text-base font-semibold"
+              className="w-full justify-center bg-emerald-700 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-950/30 py-6 text-base font-semibold"
               size="lg"
             >
               <MessageSquare className="mr-3 w-5 h-5 fill-current" />

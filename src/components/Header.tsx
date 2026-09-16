@@ -42,7 +42,7 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => scrollToSection("hero")}>
-            <img src={logo} alt="Binary Ten Logo" className="h-9 w-9 md:h-10 md:w-10 transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_0_8px_rgba(0,242,254,0.3)]" />
+            <img src={logo} alt="Binary Ten Logo" width={40} height={40} className="h-9 w-9 md:h-10 md:w-10 transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_0_8px_rgba(0,242,254,0.3)]" />
             <span className="text-lg md:text-xl font-bold font-heading text-gradient tracking-tight">Binary Ten</span>
           </div>
 
@@ -71,6 +71,8 @@ const Header = () => {
           <button
             className="md:hidden text-foreground"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>

@@ -1,4 +1,4 @@
-import rumoLogo from "@/assets/logo-rumo.png";
+import rumoLogo from "@/assets/logo-rumo.jpg";
 import uaisougueLogo from "@/assets/logo-uaisougue.jpg";
 import etusLogo from "@/assets/logo-etus.jpg";
 
@@ -58,6 +58,10 @@ const Clients = () => {
                   <img
                     src={client.logo}
                     alt={client.name}
+                    width={160}
+                    height={160}
+                    loading="lazy"
+                    decoding="async"
                     className="max-h-20 max-w-[85%] object-contain rounded-lg filter grayscale contrast-125 opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300 drop-shadow-[0_0_12px_rgba(0,242,254,0.3)]"
                   />
                 </div>
