@@ -9,7 +9,13 @@
     <meta name="author" content="Binary Ten" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    </noscript>
+
+    <link rel="canonical" href="https://www.binaryten.com.br/" />
 
     <meta property="og:title" content="Binary Ten - Soluções em Automação e Sistemas Web" />
     <meta property="og:description" content="Soluções inteligentes em automação e sistemas web. Tecnologia de ponta desenvolvida por especialistas." />
@@ -19,6 +25,45 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@BinaryTen" />
     <meta name="twitter:image" content="/logo.svg" />
+
+    <!-- Schema.org Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://www.binaryten.com.br/#organization",
+          "name": "Binary Ten",
+          "url": "https://www.binaryten.com.br/",
+          "logo": "https://www.binaryten.com.br/logo.svg",
+          "description": "Soluções inteligentes em automação e desenvolvimento de sistemas web de alta performance para empresas e escritórios de advocacia.",
+          "sameAs": []
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.binaryten.com.br/#website",
+          "url": "https://www.binaryten.com.br/",
+          "name": "Binary Ten",
+          "publisher": {
+            "@id": "https://www.binaryten.com.br/#organization"
+          },
+          "inLanguage": "pt-BR"
+        },
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://www.binaryten.com.br/#service",
+          "name": "Binary Ten - Automação e Sistemas Web",
+          "url": "https://www.binaryten.com.br/",
+          "provider": {
+            "@id": "https://www.binaryten.com.br/#organization"
+          },
+          "areaServed": "BR",
+          "description": "Desenvolvimento de software sob medida, automação de processos para escritórios de advocacia e empresas de médio e grande porte."
+        }
+      ]
+    }
+    </script>
   </head>
 
   <body>
