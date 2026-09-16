@@ -1,14 +1,12 @@
-import { Github, Linkedin, Instagram, Youtube, Mail } from "lucide-react";
+import { Github, Instagram, Mail } from "lucide-react";
 import logo from "@/assets/binary-ten-logo.svg";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { icon: Github, href: "https://github.com/binaryten", label: "GitHub" },
-    { icon: Linkedin, href: "https://linkedin.com/company/binaryten", label: "LinkedIn" },
     { icon: Instagram, href: "https://instagram.com/binaryten", label: "Instagram" },
-    { icon: Youtube, href: "https://youtube.com/@binaryten", label: "YouTube" },
+    { icon: Github, href: "https://github.com/matheuspfernandesdev", label: "GitHub" },
   ];
 
   return (
