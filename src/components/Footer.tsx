@@ -1,5 +1,5 @@
 import { Github, Instagram, Mail } from "lucide-react";
-import logo from "@/assets/binary-ten-logo.svg";
+import logo from "@/assets/binary-ten-mark.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -18,35 +18,35 @@ const Footer = () => {
             {/* Brand */}
             <div>
               <div className="flex items-center space-x-3 mb-4">
-                <img src={logo} alt="Binary Ten Logo" width={40} height={40} className="h-10 w-10 filter drop-shadow-[0_0_8px_rgba(0,242,254,0.3)]" />
-                <span className="text-xl font-bold font-heading text-gradient tracking-tight">Binary Ten</span>
+                <img src={logo} alt="Binary Ten Logo" width={384} height={239} className="h-10 w-auto filter drop-shadow-[0_0_8px_rgba(0,242,254,0.3)]" />
+                <span className="text-button font-heading text-gradient tracking-tight">Binary Ten</span>
               </div>
-              <p className="text-muted-foreground text-sm leading-relaxed">
+              <p className="text-body-sm text-muted-foreground leading-relaxed">
                 Soluções inteligentes em automação e sistemas web. Tecnologia de ponta desenvolvida por especialistas.
               </p>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h3 className="font-semibold mb-4">Links Rápidos</h3>
-              <ul className="space-y-2 text-sm">
+              <h3 className="text-h4 mb-4">Links Rápidos</h3>
+              <ul className="space-y-2">
                 <li>
-                  <a href="#about" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="#about" className="text-body-sm text-muted-foreground hover:text-primary transition-colors">
                     Sobre Nós
                   </a>
                 </li>
                 <li>
-                  <a href="#technologies" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="#technologies" className="text-body-sm text-muted-foreground hover:text-primary transition-colors">
                     Tecnologias
                   </a>
                 </li>
                 <li>
-                  <a href="#services" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="#services" className="text-body-sm text-muted-foreground hover:text-primary transition-colors">
                     Serviços
                   </a>
                 </li>
                 <li>
-                  <a href="#projects" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="#projects" className="text-body-sm text-muted-foreground hover:text-primary transition-colors">
                     Projetos
                   </a>
                 </li>
@@ -55,16 +55,16 @@ const Footer = () => {
 
             {/* Contact */}
             <div>
-              <h3 className="font-semibold mb-4">Contato</h3>
-              <div className="space-y-3 text-sm">
+              <h3 className="text-h4 mb-4">Contato</h3>
+              <div className="space-y-3">
                 <a
                   href="mailto:contato@binaryten.com.br"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+                  className="flex items-center gap-2 text-body-sm text-muted-foreground hover:text-primary transition-colors"
                 >
                   <Mail className="w-4 h-4" />
                   contato@binaryten.com.br
                 </a>
-                <p className="text-muted-foreground">
+                <p className="text-body-sm text-muted-foreground">
                   Segunda a Sexta<br />
                   9h às 18h
                 </p>
@@ -94,7 +94,7 @@ const Footer = () => {
             </div>
 
             {/* Copyright */}
-            <p className="text-sm text-muted-foreground text-center">
+            <p className="text-body-sm text-muted-foreground text-center">
               © {currentYear} Binary Ten. Todos os direitos reservados.
             </p>
           </div>

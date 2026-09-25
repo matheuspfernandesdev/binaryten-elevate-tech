@@ -15,6 +15,8 @@ type CarouselProps = {
   plugins?: CarouselPlugin;
   orientation?: "horizontal" | "vertical";
   setApi?: (api: CarouselApi) => void;
+  autoPlay?: boolean;
+  autoPlayDelay?: number;
 };
 
 type CarouselContextProps = {
@@ -39,7 +41,7 @@ function useCarousel() {
 }
 
 const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & CarouselProps>(
-  ({ orientation = "horizontal", opts, setApi, plugins, className, children, ...props }, ref) => {
+  ({ orientation = "horizontal", opts, setApi, plugins, autoPlay = true, autoPlayDelay = 2000, className, children, ...props }, ref) => {
     const [carouselRef, api] = useEmblaCarousel(
       {
         ...opts,
@@ -49,6 +51,71 @@ const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
     );
     const [canScrollPrev, setCanScrollPrev] = React.useState(false);
     const [canScrollNext, setCanScrollNext] = React.useState(false);
+
+    // Autoplay logic
+    const autoPlayTimerRef = React.useRef<number | null>(null);
+    const isHoveringRef = React.useRef(false);
+
+    const clearAutoPlayTimer = React.useCallback(() => {
+      if (autoPlayTimerRef.current) {
+        window.clearInterval(autoPlayTimerRef.current);
+        autoPlayTimerRef.current = null;
+      }
+    }, []);
+
+    const startAutoPlayTimer = React.useCallback(() => {
+      if (!autoPlay || !api) return;
+      clearAutoPlayTimer();
+      autoPlayTimerRef.current = window.setInterval(() => {
+        if (!isHoveringRef.current && api) {
+          api.scrollNext();
+        }
+      }, autoPlayDelay);
+    }, [autoPlay, autoPlayDelay, api, clearAutoPlayTimer]);
+
+    React.useEffect(() => {
+      startAutoPlayTimer();
+      return clearAutoPlayTimer;
+    }, [startAutoPlayTimer, clearAutoPlayTimer]);
+
+    // Pause on hover
+    React.useEffect(() => {
+      if (!autoPlay || !api) return;
+      const container = carouselRef.current;
+      if (!container) return;
+
+      const onMouseEnter = () => { isHoveringRef.current = true; };
+      const onMouseLeave = () => { isHoveringRef.current = false; };
+
+      container.addEventListener("mouseenter", onMouseEnter);
+      container.addEventListener("mouseleave", onMouseLeave);
+
+      return () => {
+        container.removeEventListener("mouseenter", onMouseEnter);
+        container.removeEventListener("mouseleave", onMouseLeave);
+      };
+    }, [autoPlay, api]);
+
+    // Pause on interaction (drag/focus)
+    React.useEffect(() => {
+      if (!autoPlay || !api) return;
+
+      const onPointerDown = () => { isHoveringRef.current = true; };
+      const onPointerUp = () => { isHoveringRef.current = false; };
+
+      const container = carouselRef.current;
+      if (!container) return;
+
+      container.addEventListener("pointerdown", onPointerDown);
+      container.addEventListener("pointerup", onPointerUp);
+      container.addEventListener("pointerleave", onPointerUp);
+
+      return () => {
+        container.removeEventListener("pointerdown", onPointerDown);
+        container.removeEventListener("pointerup", onPointerUp);
+        container.removeEventListener("pointerleave", onPointerUp);
+      };
+    }, [autoPlay, api]);
 
     const onSelect = React.useCallback((api: CarouselApi) => {
       if (!api) {
@@ -175,9 +242,9 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProp
         variant={variant}
         size={size}
         className={cn(
-          "absolute h-8 w-8 rounded-full",
+          "absolute h-10 w-10 rounded-full border border-border/50 bg-background/60 hover:bg-background/80 md:h-8 md:w-8",
           orientation === "horizontal"
-            ? "-left-12 top-1/2 -translate-y-1/2"
+            ? "left-2 top-1/2 -translate-y-1/2 md:left-4"
             : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
           className,
         )}
@@ -185,7 +252,7 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProp
         onClick={scrollPrev}
         {...props}
       >
-        <ArrowLeft className="h-4 w-4" />
+        <ArrowLeft className="h-5 w-5 md:h-4 md:w-4" />
         <span className="sr-only">Previous slide</span>
       </Button>
     );
@@ -203,9 +270,9 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
         variant={variant}
         size={size}
         className={cn(
-          "absolute h-8 w-8 rounded-full",
+          "absolute h-10 w-10 rounded-full border border-border/50 bg-background/60 hover:bg-background/80 md:h-8 md:w-8",
           orientation === "horizontal"
-            ? "-right-12 top-1/2 -translate-y-1/2"
+            ? "right-2 top-1/2 -translate-y-1/2 md:right-4"
             : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
           className,
         )}
@@ -213,7 +280,7 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
         onClick={scrollNext}
         {...props}
       >
-        <ArrowRight className="h-4 w-4" />
+        <ArrowRight className="h-5 w-5 md:h-4 md:w-4" />
         <span className="sr-only">Next slide</span>
       </Button>
     );
@@ -221,4 +288,53 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
 );
 CarouselNext.displayName = "CarouselNext";
 
-export { type CarouselApi, Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext };
+function CarouselPagination() {
+  const { api } = useCarousel();
+  const [current, setCurrent] = React.useState(0);
+  const [count, setCount] = React.useState(0);
+
+  React.useEffect(() => {
+    if (!api) return;
+
+    const update = () => {
+      setCount(api.scrollSnapList().length);
+      setCurrent(api.selectedScrollSnap());
+    };
+
+    update();
+    api.on("reInit", update);
+    api.on("select", update);
+
+    return () => {
+      api.off("reInit", update);
+      api.off("select", update);
+    };
+  }, [api]);
+
+  if (count <= 1) return null;
+
+  return (
+    <div
+      role="tablist"
+      aria-label="Carousel pagination"
+      className="flex items-center justify-center gap-1.5 py-3"
+    >
+      {Array.from({ length: count }).map((_, i) => (
+        <button
+          key={i}
+          type="button"
+          aria-label={`Go to slide ${i + 1}`}
+          aria-selected={i === current}
+          tabIndex={i === current ? 0 : -1}
+          onClick={() => api?.scrollTo(i)}
+          className={cn(
+            "h-1.5 w-1.5 shrink-0 cursor-pointer rounded-full border border-primary/30 bg-primary/30 transition-all duration-300",
+            i === current ? "w-4 border-primary bg-primary" : "hover:w-3 hover:bg-primary/50",
+          )}
+        />
+      ))}
+    </div>
+  );
+}
+
+export { type CarouselApi, Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext, CarouselPagination };
