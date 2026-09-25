@@ -7,10 +7,15 @@ import Services from "@/components/Services";
 import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import BrandIntro from "@/components/intro/BrandIntro";
+import { useIntroGate } from "@/hooks/use-intro-gate";
 
 const Index = () => {
+  const { visible: introVisible, dismiss: dismissIntro } = useIntroGate();
+
   return (
     <div className="min-h-screen">
+      {introVisible && <BrandIntro onDismiss={dismissIntro} />}
       <Header />
       <main>
         <Hero />

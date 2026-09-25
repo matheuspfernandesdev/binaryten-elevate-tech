@@ -1,5 +1,6 @@
 import { Mail, MessageSquare, ShieldCheck, Clock, Code2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Reveal } from "@/components/Reveal";
 
 const Contact = () => {
   const handleWhatsApp = () => {
@@ -37,27 +38,24 @@ const Contact = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
 
       <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-16 animate-fade-in">
-          <p className="text-sm font-semibold uppercase tracking-widest text-primary mb-2">
-            Atendimento Rápido
-          </p>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 font-heading">
+        <Reveal className="text-center mb-16">
+          <p className="text-overline text-primary mb-2">Atendimento Rápido</p>
+          <h2 className="text-h2 mb-4">
             Entre em <span className="text-gradient">Contato</span>
           </h2>
           <div className="w-20 h-1 bg-primary mx-auto mb-8" />
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-body-lg text-muted-foreground max-w-2xl mx-auto prose">
             Vamos transformar seus desafios operacionais em software de alta performance. Fale conosco hoje mesmo!
           </p>
-        </div>
+        </Reveal>
 
         {/* Contact Buttons Block */}
-        <div className="max-w-3xl mx-auto glass-card p-8 md:p-12 rounded-3xl border border-primary/20 shadow-2xl mb-16 animate-slide-up">
+        <Reveal className="max-w-3xl mx-auto glass-card p-8 md:p-12 rounded-3xl border border-primary/20 shadow-2xl mb-16">
           <div className="text-center max-w-xl mx-auto mb-8">
-            <h3 className="text-2xl md:text-3xl font-bold mb-3 font-heading text-foreground">
+            <h3 className="text-h3 mb-3 text-foreground">
               Fale Conosco
             </h3>
-            <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
+            <p className="text-body-sm text-muted-foreground leading-relaxed">
               Escolha o canal de sua preferência. Estamos prontos para entender suas necessidades e apresentar a melhor solução.
             </p>
           </div>
@@ -65,7 +63,7 @@ const Contact = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-xl mx-auto mb-8">
             <Button
               onClick={handleWhatsApp}
-              className="w-full justify-center bg-emerald-700 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-950/30 py-6 text-base font-semibold"
+              className="w-full justify-center bg-emerald-700 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-950/30 py-6 text-button"
               size="lg"
             >
               <MessageSquare className="mr-3 w-5 h-5 fill-current" />
@@ -75,7 +73,7 @@ const Contact = () => {
             <Button
               onClick={handleEmail}
               variant="outline"
-              className="w-full justify-center border-primary/50 hover:bg-primary/10 py-6 text-base font-semibold text-foreground"
+              className="w-full justify-center border-primary/50 hover:bg-primary/10 py-6 text-button text-foreground"
               size="lg"
             >
               <Mail className="mr-3 w-5 h-5 text-primary" />
@@ -86,28 +84,30 @@ const Contact = () => {
           {/* Quick Info Badges */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 border-t border-border/40 max-w-xl mx-auto">
             <div className="text-center p-3 rounded-xl bg-background/40 border border-border/30">
-              <p className="text-xs text-muted-foreground mb-1">Horário de Atendimento</p>
-              <p className="font-semibold text-xs md:text-sm text-foreground">Segunda a Sexta, 9h às 18h</p>
+              <p className="text-caption text-muted-foreground mb-1">Horário de Atendimento</p>
+              <p className="font-semibold text-body-sm text-foreground">Segunda a Sexta, 9h às 18h</p>
             </div>
             <div className="text-center p-3 rounded-xl bg-background/40 border border-border/30">
-              <p className="text-xs text-muted-foreground mb-1">Tempo de Resposta</p>
-              <p className="font-semibold text-xs md:text-sm text-primary">Atendimento imediato via WhatsApp</p>
+              <p className="text-caption text-muted-foreground mb-1">Tempo de Resposta</p>
+              <p className="font-semibold text-body-sm text-primary">Atendimento imediato via WhatsApp</p>
             </div>
           </div>
-        </div>
+        </Reveal>
 
         {/* Quality Badges */}
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-border/40">
           {qualityBadges.map((badge, idx) => (
-            <div key={idx} className="glass-card p-6 rounded-2xl border border-primary/15 hover:border-primary/40 transition-all duration-300 flex flex-col items-center text-center sm:flex-row sm:items-start sm:text-left gap-4">
-              <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0 border border-primary/20">
-                <badge.icon className="w-6 h-6 text-primary" />
+            <Reveal key={idx} delay={idx * 0.1} className="h-full">
+              <div className="group glass-card p-6 rounded-2xl border border-primary/15 hover:border-primary/40 hover:-translate-y-2 transition-all duration-300 flex flex-col items-center text-center sm:flex-row sm:items-start sm:text-left gap-4 h-full">
+                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0 border border-primary/20 group-hover:glow-primary transition-all">
+                  <badge.icon className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <h4 className="text-h4 text-foreground mb-1">{badge.title}</h4>
+                  <p className="text-body-sm text-muted-foreground leading-relaxed">{badge.description}</p>
+                </div>
               </div>
-              <div>
-                <h4 className="font-bold text-base text-foreground mb-1 font-heading">{badge.title}</h4>
-                <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{badge.description}</p>
-              </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

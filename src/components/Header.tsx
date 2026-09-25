@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/binary-ten-logo.svg";
+import logo from "@/assets/binary-ten-mark.png";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -42,8 +42,8 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => scrollToSection("hero")}>
-            <img src={logo} alt="Binary Ten Logo" width={40} height={40} className="h-9 w-9 md:h-10 md:w-10 transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_0_8px_rgba(0,242,254,0.3)]" />
-            <span className="text-lg md:text-xl font-bold font-heading text-gradient tracking-tight">Binary Ten</span>
+            <img src={logo} alt="Binary Ten Logo" width={384} height={239} className="h-9 w-auto md:h-10 transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_0_8px_rgba(0,242,254,0.3)]" />
+            <span className="text-button font-heading text-gradient tracking-tight">Binary Ten</span>
           </div>
 
           {/* Desktop Navigation */}
@@ -52,7 +52,7 @@ const Header = () => {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="text-foreground/80 hover:text-primary transition-colors duration-200 font-medium"
+                className="text-body text-foreground/80 hover:text-primary transition-colors duration-200"
               >
                 {item.label}
               </button>
@@ -86,7 +86,7 @@ const Header = () => {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="text-foreground/80 hover:text-primary transition-colors duration-200 font-medium text-left"
+                  className="text-body text-foreground/80 hover:text-primary transition-colors duration-200 text-left"
                 >
                   {item.label}
                 </button>

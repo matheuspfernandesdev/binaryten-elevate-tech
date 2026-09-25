@@ -1,4 +1,5 @@
 import { Globe, Zap, Puzzle, Headphones, Gauge } from "lucide-react";
+import { Reveal } from "@/components/Reveal";
 
 const Services = () => {
   const services = [
@@ -43,50 +44,47 @@ const Services = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+        <Reveal className="text-center mb-16">
+          <h2 className="text-h2 mb-4">
             O que <span className="text-gradient">Fazemos</span>
           </h2>
           <div className="w-20 h-1 bg-primary mx-auto mb-8" />
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-body-lg text-muted-foreground max-w-2xl mx-auto prose">
             Soluções completas para transformar seu negócio através da tecnologia
           </p>
-        </div>
+        </Reveal>
 
         {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {services.map((service, index) => (
-            <div
-              key={index}
-              className="glass-card p-8 rounded-2xl hover:scale-105 transition-all duration-300 group animate-slide-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              {/* Icon */}
-              <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:glow-primary transition-all">
-                <service.icon className="w-8 h-8 text-primary" />
+            <Reveal key={index} delay={index * 0.08} className="h-full">
+              <div className="group glass-card p-8 rounded-2xl hover:-translate-y-2 transition-all duration-300 h-full relative overflow-hidden">
+                {/* Icon */}
+                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:glow-primary transition-all">
+                  <service.icon className="w-8 h-8 text-primary" />
+                </div>
+
+                {/* Title */}
+                <h3 className="text-h3 mb-4 text-foreground group-hover:text-primary transition-colors">
+                  {service.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-body text-muted-foreground mb-6 leading-relaxed">
+                  {service.description}
+                </p>
+
+                {/* Features */}
+                <div className="space-y-2">
+                  {service.features.map((feature, featureIndex) => (
+                    <div key={featureIndex} className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-primary rounded-full" />
+                      <span className="text-body-sm text-muted-foreground">{feature}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-
-              {/* Title */}
-              <h3 className="text-2xl font-bold mb-4 text-foreground group-hover:text-primary transition-colors">
-                {service.title}
-              </h3>
-
-              {/* Description */}
-              <p className="text-muted-foreground mb-6 leading-relaxed">
-                {service.description}
-              </p>
-
-              {/* Features */}
-              <div className="space-y-2">
-                {service.features.map((feature, featureIndex) => (
-                  <div key={featureIndex} className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                    <span className="text-sm text-muted-foreground">{feature}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>
