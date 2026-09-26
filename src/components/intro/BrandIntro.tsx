@@ -11,12 +11,25 @@ type IntroChar = {
 };
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
-const CHAR_STAGGER = 0.12;
-const EXIT_STAGGER = 0.12;
-const CHAR_ENTER_DURATION = 1.44;
-const EXIT_DURATION = 0.84;
-const DOT_SPRING_DELAY = 0.72;
-const LAYOUT_SPRING = { type: "spring", stiffness: 48, damping: 12.5 } as const;
+
+// The whole intro (including the Binary Ten -> Bi.Ten morph) runs ~30% faster.
+// Durations/delays are multiplied by TIME_SCALE and spring physics are scaled
+// by the same factor so the motion keeps its original character.
+const TIME_SCALE = 0.77;
+const ms = (value: number) => value * TIME_SCALE;
+const spring = (stiffness: number, damping: number) =>
+  ({
+    type: "spring",
+    stiffness: stiffness / (TIME_SCALE * TIME_SCALE),
+    damping: damping / TIME_SCALE,
+  }) as const;
+
+const CHAR_STAGGER = ms(0.12);
+const EXIT_STAGGER = ms(0.12);
+const CHAR_ENTER_DURATION = ms(1.44);
+const EXIT_DURATION = ms(0.84);
+const DOT_SPRING_DELAY = ms(0.72);
+const LAYOUT_SPRING = spring(48, 12.5);
 
 const SOURCE_CHARS: IntroChar[] = ["B", "i", "n", "a", "r", "y", "\u00A0", "T", "e", "n"].map(
   (glyph, index) => ({
@@ -50,9 +63,7 @@ function writeTransition(writeIndex: number): Transition {
 }
 
 const DOT_TRANSITION: Transition = {
-  type: "spring",
-  stiffness: 73,
-  damping: 8.75,
+  ...spring(73, 8.75),
   delay: DOT_SPRING_DELAY,
   layout: LAYOUT_SPRING,
 };
@@ -105,15 +116,15 @@ const BrandIntro = ({ onDismiss }: BrandIntroProps) => {
       }, delay);
 
     if (reduceMotion) {
-      const timer = window.setTimeout(() => setPhase("exit"), 3840);
+      const timer = window.setTimeout(() => setPhase("exit"), ms(3840));
       return () => window.clearTimeout(timer);
     }
 
     const timers = [
-      guarded(() => setPhase("hold"), 2760),
-      guarded(() => setPhase("morph"), 3480),
-      guarded(() => setPhase("tagline"), 5280),
-      guarded(() => setPhase("exit"), 7920),
+      guarded(() => setPhase("hold"), ms(2760)),
+      guarded(() => setPhase("morph"), ms(3480)),
+      guarded(() => setPhase("tagline"), ms(5280)),
+      guarded(() => setPhase("exit"), ms(7920)),
     ];
     return () => timers.forEach(window.clearTimeout);
   }, [reduceMotion]);
@@ -125,7 +136,7 @@ const BrandIntro = ({ onDismiss }: BrandIntroProps) => {
 
   React.useEffect(() => {
     if (phase !== "exit") return;
-    const timer = window.setTimeout(onDismiss, 1200);
+    const timer = window.setTimeout(onDismiss, ms(1200));
     return () => window.clearTimeout(timer);
   }, [phase, onDismiss]);
 
@@ -144,7 +155,7 @@ const BrandIntro = ({ onDismiss }: BrandIntroProps) => {
       className="fixed inset-0 z-[100] flex cursor-pointer flex-col items-center justify-center overflow-hidden bg-background"
       initial={false}
       animate={{ opacity: phase === "exit" ? 0 : 1 }}
-      transition={{ duration: 1.2, ease: EASE }}
+      transition={{ duration: ms(1.2), ease: EASE }}
       onPointerDown={requestExit}
     >
       {/* Animated grid, same as Hero */}
@@ -223,7 +234,7 @@ const BrandIntro = ({ onDismiss }: BrandIntroProps) => {
               ? { opacity: 1, y: 0, filter: "blur(0px)" }
               : { opacity: 0, y: 14, filter: "blur(6px)" }
           }
-          transition={{ duration: 1.2, ease: EASE }}
+          transition={{ duration: ms(1.2), ease: EASE }}
         >
           Conheça a transformação digital que sua empresa precisa
         </motion.p>

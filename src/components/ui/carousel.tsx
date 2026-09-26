@@ -17,6 +17,8 @@ type CarouselProps = {
   setApi?: (api: CarouselApi) => void;
   autoPlay?: boolean;
   autoPlayDelay?: number;
+  /** Only ticks the autoplay timer while the carousel is visible on screen. */
+  autoPlayOnlyInView?: boolean;
 };
 
 type CarouselContextProps = {
@@ -41,7 +43,7 @@ function useCarousel() {
 }
 
 const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & CarouselProps>(
-  ({ orientation = "horizontal", opts, setApi, plugins, autoPlay = true, autoPlayDelay = 2000, className, children, ...props }, ref) => {
+  ({ orientation = "horizontal", opts, setApi, plugins, autoPlay = true, autoPlayDelay = 2000, autoPlayOnlyInView = false, className, children, ...props }, ref) => {
     const [carouselRef, api] = useEmblaCarousel(
       {
         ...opts,
@@ -51,10 +53,27 @@ const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
     );
     const [canScrollPrev, setCanScrollPrev] = React.useState(false);
     const [canScrollNext, setCanScrollNext] = React.useState(false);
+    const [inView, setInView] = React.useState(!autoPlayOnlyInView);
 
     // Autoplay logic
     const autoPlayTimerRef = React.useRef<number | null>(null);
     const isHoveringRef = React.useRef(false);
+
+    // `carouselRef` is embla's viewport callback ref (a function), so the
+    // viewport element is read from the embla api instead.
+    React.useEffect(() => {
+      if (!autoPlayOnlyInView || !api) return;
+      const container = api.rootNode();
+      if (!container) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => entries.forEach((entry) => setInView(entry.isIntersecting)),
+        { threshold: 0.35 },
+      );
+      observer.observe(container);
+
+      return () => observer.disconnect();
+    }, [autoPlayOnlyInView, api]);
 
     const clearAutoPlayTimer = React.useCallback(() => {
       if (autoPlayTimerRef.current) {
@@ -64,14 +83,14 @@ const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
     }, []);
 
     const startAutoPlayTimer = React.useCallback(() => {
-      if (!autoPlay || !api) return;
+      if (!autoPlay || !api || !inView) return;
       clearAutoPlayTimer();
       autoPlayTimerRef.current = window.setInterval(() => {
         if (!isHoveringRef.current && api) {
           api.scrollNext();
         }
       }, autoPlayDelay);
-    }, [autoPlay, autoPlayDelay, api, clearAutoPlayTimer]);
+    }, [autoPlay, autoPlayDelay, api, inView, clearAutoPlayTimer]);
 
     React.useEffect(() => {
       startAutoPlayTimer();

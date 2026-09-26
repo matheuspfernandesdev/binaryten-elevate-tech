@@ -109,7 +109,7 @@ const Hero = () => {
               onClick={() => scrollToSection("about")}
               className="bg-primary hover:bg-primary/90 text-primary-foreground glow-primary group px-8 py-6 text-button"
             >
-              Conheça a Binary Ten
+              Conheça a Bi.Ten
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button

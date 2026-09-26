@@ -57,7 +57,7 @@ const About = () => {
               <Reveal className="space-y-6">
                 <p className="text-body-lg text-muted-foreground leading-relaxed prose">
                   Com mais de <span className="text-primary font-semibold">8 anos de atuação e inteligência técnica</span> no setor de TI,
-                  a Binary Ten desenvolve soluções tecnológicas altamente escaláveis, seguras e orientadas ao crescimento do seu negócio.
+                  a Bi.Ten desenvolve soluções tecnológicas altamente escaláveis, seguras e orientadas ao crescimento do seu negócio.
                 </p>
 
                 <p className="text-body-lg text-muted-foreground leading-relaxed prose">

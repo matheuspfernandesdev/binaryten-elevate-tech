@@ -41,13 +41,13 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => scrollToSection("hero")}>
-            <img src={logo} alt="Binary Ten Logo" width={384} height={239} className="h-9 w-auto md:h-10 transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_0_8px_rgba(0,242,254,0.3)]" />
-            <span className="text-button font-heading text-gradient tracking-tight">Binary Ten</span>
+          <div className="flex shrink-0 items-center space-x-3 cursor-pointer group" onClick={() => scrollToSection("hero")}>
+            <img src={logo} alt="Bi.Ten Logo" width={384} height={239} className="h-9 w-auto md:h-10 transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_0_8px_rgba(0,242,254,0.3)]" />
+            <span className="text-button font-heading text-gradient tracking-tight">Bi.Ten</span>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
             {navItems.map((item) => (
               <button
                 key={item.id}

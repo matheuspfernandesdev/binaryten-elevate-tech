@@ -1,5 +1,7 @@
+import * as React from "react";
 import {
   Carousel,
+  type CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselPagination,
@@ -13,6 +15,22 @@ import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 const Clients = () => {
   const reduceMotion = useReducedMotion();
+  const [api, setApi] = React.useState<CarouselApi>();
+  const [activeIndex, setActiveIndex] = React.useState(0);
+
+  React.useEffect(() => {
+    if (!api) return;
+
+    const onSelect = () => setActiveIndex(api.selectedScrollSnap());
+    onSelect();
+    api.on("select", onSelect);
+    api.on("reInit", onSelect);
+
+    return () => {
+      api.off("select", onSelect);
+      api.off("reInit", onSelect);
+    };
+  }, [api]);
 
   const clients = [
     {
@@ -60,56 +78,75 @@ const Clients = () => {
          {/* Logo Cards */}
         <Carousel
           opts={{
-            align: "start",
+            align: "center",
             loop: true,
             slidesToScroll: 1,
           }}
+          setApi={setApi}
           autoPlay={!reduceMotion}
           autoPlayDelay={4000}
           className="w-full max-w-6xl mx-auto"
         >
           <CarouselContent className="-ml-2 md:-ml-4 py-6">
-            {clients.map((client, index) => (
-              <CarouselItem
-                key={index}
-                className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3"
-              >
-                <div className="h-full">
-                  <div className="group glass-card p-5 md:p-10 rounded-3xl border border-primary/20 hover:border-primary/60 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(0,242,254,0.25)] flex flex-col justify-between h-full">
-                    <div>
-                      {/* Logo Container */}
-                      <div
-                        className={`relative flex items-center justify-center h-24 md:h-32 mb-6 md:mb-8 rounded-2xl p-4 border border-border/40 overflow-hidden transition-all duration-300 group-hover:border-primary/40 ${client.bgStyle}`}
-                      >
-                        <img
-                          src={client.logo}
-                          alt={client.name}
-                          width={160}
-                          height={160}
-                          loading="lazy"
-                          decoding="async"
-                          className="max-h-20 max-w-[85%] object-contain rounded-lg filter grayscale contrast-125 opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300 drop-shadow-[0_0_12px_rgba(0,242,254,0.3)]"
-                        />
-                      </div>
+            {clients.map((client, index) => {
+              const isActive = index === activeIndex;
 
-                      {/* Info */}
-                      <div className="text-center">
-                        <h3 className="text-h3 text-foreground mb-1 group-hover:text-primary transition-colors">
-                          {client.name}
-                        </h3>
-                        <p className="text-caption font-semibold uppercase tracking-wider text-primary mb-3 md:mb-4">
-                          {client.tagline}
-                        </p>
-                        <p className="text-body-sm text-muted-foreground leading-relaxed">
-                          {client.description}
-                        </p>
+              return (
+                <CarouselItem
+                  key={index}
+                  className="pl-2 md:pl-4 basis-[80%] md:basis-[56%]"
+                >
+                  <div className="h-full">
+                    <div
+                      className={`group glass-card p-5 md:p-10 rounded-3xl border transition-all duration-300 flex flex-col justify-between h-full ${
+                        isActive
+                          ? "-translate-y-2 border-primary/60 shadow-[0_0_30px_rgba(0,242,254,0.25)]"
+                          : "border-primary/20 hover:-translate-y-2 hover:border-primary/60 hover:shadow-[0_0_30px_rgba(0,242,254,0.25)]"
+                      }`}
+                    >
+                      <div>
+                        {/* Logo Container */}
+                        <div
+                          className={`relative flex items-center justify-center h-24 md:h-32 mb-6 md:mb-8 rounded-2xl p-4 border overflow-hidden transition-all duration-300 ${isActive ? "border-primary/40" : "border-border/40 group-hover:border-primary/40"} ${client.bgStyle}`}
+                        >
+                          <img
+                            src={client.logo}
+                            alt={client.name}
+                            width={160}
+                            height={160}
+                            loading="lazy"
+                            decoding="async"
+                            className={`max-h-20 max-w-[85%] object-contain rounded-lg transition-all duration-300 drop-shadow-[0_0_12px_rgba(0,242,254,0.3)] ${
+                              isActive
+                                ? "grayscale-0 opacity-100 scale-105"
+                                : "grayscale contrast-125 opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105"
+                            }`}
+                          />
+                        </div>
+
+                        {/* Info */}
+                        <div className="text-center">
+                          <h3
+                            className={`text-h3 mb-1 transition-colors ${
+                              isActive ? "text-primary" : "text-foreground group-hover:text-primary"
+                            }`}
+                          >
+                            {client.name}
+                          </h3>
+                          <p className="text-caption font-semibold uppercase tracking-wider text-primary mb-3 md:mb-4">
+                            {client.tagline}
+                          </p>
+                          <p className="text-body-sm text-muted-foreground leading-relaxed">
+                            {client.description}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </CarouselItem>
-            ))}
-</CarouselContent>
+                </CarouselItem>
+              );
+            })}
+          </CarouselContent>
           <CarouselPagination />
         </Carousel>
       </div>

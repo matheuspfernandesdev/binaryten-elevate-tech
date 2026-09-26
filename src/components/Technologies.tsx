@@ -74,7 +74,8 @@ const Methodology = () => {
             slidesToScroll: 1,
           }}
           autoPlay={!reduceMotion}
-          autoPlayDelay={4000}
+          autoPlayDelay={5200}
+          autoPlayOnlyInView
           className="w-full max-w-6xl mx-auto"
         >
           <CarouselContent className="-ml-2 md:-ml-4 py-6">
