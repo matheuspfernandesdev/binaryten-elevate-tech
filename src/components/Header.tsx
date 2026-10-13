@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/binary-ten-mark.png";
@@ -6,6 +7,8 @@ import logo from "@/assets/binary-ten-mark.png";
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,11 +19,16 @@ const Header = () => {
   }, []);
 
   const scrollToSection = (id: string) => {
+    if (location.pathname !== "/") {
+      navigate(`/#${id}`);
+      setIsMobileMenuOpen(false);
+      return;
+    }
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
-      setIsMobileMenuOpen(false);
     }
+    setIsMobileMenuOpen(false);
   };
 
   const navItems = [
@@ -41,10 +49,10 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex shrink-0 items-center space-x-3 cursor-pointer group" onClick={() => scrollToSection("hero")}>
+          <Link to="/" className="flex shrink-0 items-center space-x-3 cursor-pointer group">
             <img src={logo} alt="Binary Ten Logo" width={384} height={239} className="h-9 w-auto md:h-10 transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_0_8px_rgba(0,242,254,0.3)]" />
             <span className="text-button font-heading text-gradient tracking-tight">Binary Ten</span>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
@@ -57,6 +65,12 @@ const Header = () => {
                 {item.label}
               </button>
             ))}
+            <Link
+              to="/landing-pages"
+              className="text-body text-foreground/80 hover:text-primary transition-colors duration-200"
+            >
+              Site para o seu Negócio
+            </Link>
           </nav>
 
           {/* CTA Button */}
@@ -91,6 +105,13 @@ const Header = () => {
                   {item.label}
                 </button>
               ))}
+              <Link
+                to="/landing-pages"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-body text-foreground/80 hover:text-primary transition-colors duration-200 text-left"
+              >
+                Site para o seu Negócio
+              </Link>
               <Button
                 onClick={() => scrollToSection("contact")}
                 className="bg-primary hover:bg-primary/90 text-primary-foreground w-full"

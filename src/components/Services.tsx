@@ -1,4 +1,5 @@
-import { Globe, Zap, Puzzle, Headphones, Gauge } from "lucide-react";
+import { Globe, Zap, Puzzle, Headphones, Gauge, MonitorSmartphone } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Reveal } from "@/components/Reveal";
 
 const Services = () => {
@@ -8,6 +9,13 @@ const Services = () => {
       title: "Desenvolvimento de Sistemas Web",
       description: "Aplicações web modernas, responsivas e de alta performance, desenvolvidas com as melhores tecnologias do mercado.",
       features: ["SPAs", "PWAs", "APIs RESTful", "Microservices"],
+    },
+    {
+      icon: MonitorSmartphone,
+      title: "Site para o seu Negócio",
+      description: "Landing pages profissionais para clínicas, escritórios, médicos, indústrias, fotógrafos e autônomos — a partir de R$ 399.",
+      features: ["Design Responsivo", "Hospedagem 12 Meses Grátis", "SEO Básico", "Entrega Rápida"],
+      href: "/landing-pages",
     },
     {
       icon: Zap,
@@ -56,36 +64,44 @@ const Services = () => {
 
         {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {services.map((service, index) => (
-            <Reveal key={index} delay={index * 0.08} className="h-full">
-              <div className="group glass-card p-8 rounded-2xl hover:-translate-y-2 transition-all duration-300 h-full relative overflow-hidden">
-                {/* Icon */}
-                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:glow-primary transition-all">
-                  <service.icon className="w-8 h-8 text-primary" />
-                </div>
+          {services.map((service, index) => {
+            const CardTag = service.href ? Link : "div";
+            const cardProps = service.href ? { to: service.href } : {};
 
-                {/* Title */}
-                <h3 className="text-h3 mb-4 text-foreground group-hover:text-primary transition-colors">
-                  {service.title}
-                </h3>
+            return (
+              <Reveal key={index} delay={index * 0.08} className="h-full">
+                <CardTag
+                  {...(cardProps as never)}
+                  className="group glass-card p-8 rounded-2xl hover:-translate-y-2 transition-all duration-300 h-full relative overflow-hidden block"
+                >
+                  {/* Icon */}
+                  <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:glow-primary transition-all">
+                    <service.icon className="w-8 h-8 text-primary" />
+                  </div>
 
-                {/* Description */}
-                <p className="text-body text-muted-foreground mb-6 leading-relaxed">
-                  {service.description}
-                </p>
+                  {/* Title */}
+                  <h3 className="text-h3 mb-4 text-foreground group-hover:text-primary transition-colors">
+                    {service.title}
+                  </h3>
 
-                {/* Features */}
-                <div className="space-y-2">
-                  {service.features.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                      <span className="text-body-sm text-muted-foreground">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
-          ))}
+                  {/* Description */}
+                  <p className="text-body text-muted-foreground mb-6 leading-relaxed">
+                    {service.description}
+                  </p>
+
+                  {/* Features */}
+                  <div className="space-y-2">
+                    {service.features.map((feature, featureIndex) => (
+                      <div key={featureIndex} className="flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 bg-primary rounded-full" />
+                        <span className="text-body-sm text-muted-foreground">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardTag>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>
